@@ -6,7 +6,7 @@ Julia's type inference allows overloading of member functions outside a module. 
 using IncrementalInference
 
 # You must import this to later overload
-import IncrementalInference: getSample
+import IncrementalInference: getSample, SamplableBelief
 ```
 
 Let's start with some factor graph:
@@ -143,7 +143,7 @@ function (cfo::CalcFactor{<:OtherFactor})(res::AbstractVector{<:Real},
   # not doing anything with `cfo.factor.userdata` either
   
   # the broadcast operators with automatically vectorize
-  res[1:2] .= z .- (x1[1:2] .- x1[1:2])
+  res[1:2] .= z .- (x2[1:2] .- x1[1:2])
   res .^= 2 # square on 1 and 2 directions
   res[1] += res[2] # sum the squares
   res[2] = 0.0 # clean up
